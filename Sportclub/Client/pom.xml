@@ -9,4 +9,28 @@
     <artifactId>Client</artifactId>
     <name>Archetype - Client</name>
     <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>entity</groupId>
+            <artifactId>entity-sql</artifactId>
+            <version>0.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>entity</groupId>
+            <artifactId>entity-core</artifactId>
+            <version>0.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>entity</groupId>
+            <artifactId>entity-txn</artifactId>
+            <version>0.1.4</version>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>clojars</id>
+            <name>Clojars</name>
+            <url>https://repo.clojars.org/</url>
+        </repository>
+    </repositories>
 </project>

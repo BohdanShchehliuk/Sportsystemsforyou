@@ -1,5 +1,6 @@
 package client;
 
+import client.service.impl.TariffServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -16,7 +17,9 @@ public class ClientApplication {
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(ClientApplication.class, args);
+        TariffServiceImpl tariffService = new TariffServiceImpl();
+        System.out.println(tariffService.getAll());
     }
 }
