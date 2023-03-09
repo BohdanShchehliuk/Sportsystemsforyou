@@ -6,8 +6,8 @@
         <artifactId>Sportclub</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>Client</artifactId>
-    <name>Archetype - Client</name>
+    <artifactId>EurekaServerManager</artifactId>
+    <name>Archetype - EurekaServerManager</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
