@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
-
 @Entity
 @Data
 @Builder
@@ -30,9 +29,28 @@ public class Tariff {
     private boolean friday;
     private boolean saturday;
     private boolean sunday;
-    @Column(name = "TINE_START_BEGINING")
-    private Time beginning;
-    @Column(name = "TINE_START_END")
-    private Time end;
+    @Column(name = "TIME_START_BEGINING")
+    private Time startHour;
+    @Column(name = "TIME_START_END")
+    private Time endHour;
+    private boolean active;
 
+    @Override
+    public String toString() {
+        return "Tariff{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", duration=" + duration +
+                ", monday=" + monday +
+                ", tuesday=" + tuesday +
+                ", wednesday=" + wednesday +
+                ", thursday=" + thursday +
+                ", friday=" + friday +
+                ", saturday=" + saturday +
+                ", sunday=" + sunday +
+                ", startHour=" + startHour +
+                ", endHour=" + endHour +
+                '}';
+    }
 }

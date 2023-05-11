@@ -19,7 +19,6 @@ public class ClientApplication {
     }
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ClientApplication.class, args);
-        TariffServiceImpl tariffService = new TariffServiceImpl();
-        System.out.println(tariffService.getAll());
+
     }
 }
