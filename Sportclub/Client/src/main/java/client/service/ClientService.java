@@ -9,15 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClientService {
-    List<Client> getAll() throws UserNotFoundException;
-
-    Client addClient(Client client) throws UserAlreadyExistException;
 
     Client payment(String phoneNumb, float payment) throws UserNotFoundException;
 
-    String delete(String name, String surname, String phoneNumber) throws UserNotFoundException;
-
-    String unactivated(String name, String surname, String phoneNumber) throws UserNotFoundException;
-    String activated(String name, String surname, String phoneNumber) throws UserNotFoundException;
     Optional<Client> getByPhoneNumb(String phoneNumber) throws UserNotFoundException;
 }

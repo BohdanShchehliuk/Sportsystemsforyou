@@ -4,6 +4,7 @@ import client.entity.Client;
 import client.entity.Logs;
 import client.entity.Tariff;
 import client.exeptions.CustomException;
+import client.exeptions.UserNotFoundException;
 import client.reposetory.ClientRepository;
 import client.reposetory.LogsRepository;
 import client.reposetory.TariffRepository;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -28,6 +30,11 @@ public class LogsServiceImpl implements LogsService {
     public LogsRepository logsRepository;
     @Autowired
     public TariffRepository tariffRepository;
+
+    @Override
+    public List<Logs> getAll() throws UserNotFoundException {
+        return logsRepository.findAll();
+    }
 
     @Override
     public Logs chooseTariff(String phoneNumb, String tariffName) throws CustomException {
@@ -65,33 +72,6 @@ public class LogsServiceImpl implements LogsService {
     }
 
     @Override
-    public Logs postponeTariff(String phoneNumb, String tariffName, int month) throws CustomException {
-        log.debug("Service /postponeTariff/ started work");
-        checkClient(phoneNumb, tariffName);
-        Tariff tariff = tariffRepository.findTariffByName(tariffName);
-        Client client = clientRepository.findClientByPhone(phoneNumb);
-
-        Optional<Logs> logsList = logsRepository.findAll().stream().filter(l -> l.getClient().equals(client) &&
-                l.isActive()).findFirst();
-        if (logsList.isEmpty()) {
-            throw new CustomException("You have no active tariff");
-        }
-        Logs logsNew = logsList.get();
-
-        float budget = client.getWallet() - month * POSTPONEPRISE;
-
-        if (budget < 0) {
-            throw new CustomException("Client must add " + budget * (-1) + " dollar to his wallet");
-        } else {
-            logsNew.setEndDay(Date.valueOf(logsNew.getEndDay().toLocalDate().plusMonths(month)));
-            client.setWallet(client.getWallet() - tariff.getPrice());
-            logsRepository.save(logsNew);
-            clientRepository.save(client);
-        }
-        return logsNew;
-    }
-
-    @Override
     public Logs access(String phoneNumb) throws CustomException {
         log.debug("Service / Client payment/ started work");
         Optional<Client> clientOptional = Optional.ofNullable(clientRepository.findClientByPhone(phoneNumb));
@@ -109,6 +89,19 @@ public class LogsServiceImpl implements LogsService {
         checkDay(logs);
         return logs;
     }
+
+    @Override
+    public List<Logs> getAllClientFromStartDataToFinishData(Date startData, Date finishData) throws CustomException {
+        log.info("Service /List<Logs> getAllClientFromStartDataToFinishData/ started work");
+        List<Logs> list = logsRepository.getAllClientFromStartDataToFinishData(startData, finishData);
+        if (startData.after(finishData)) throw new CustomException("StartData is after FinishData");
+        if (list.isEmpty()) {
+            throw new CustomException("list is empty");
+        }
+        return list;
+    }
+
+
     private void checkClient(String phoneNumb, String tariffName) {
         Optional<Client> clientOptional = Optional.ofNullable(clientRepository.findClientByPhone(phoneNumb));
         if (clientOptional.isEmpty()) {

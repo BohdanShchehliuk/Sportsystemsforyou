@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.undo.CannotUndoException;
+import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -22,7 +25,13 @@ public class LogsController {
     final private ModelMapper mapToDTO;
     private LogsService logsService;
 
-    @GetMapping("/tariff/create/")
+    @GetMapping("/logs/getAll/admin/")
+    private List<LogsDto> getAll() throws Exception {
+        log.info("Controller /logs/getAll/ started work");
+        return logsService.getAll().stream().map(logs -> mapToDTO.map(logs, LogsDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/tariff/create/admin/")
     public TariffDto create() {
         log.info("Controller /tariff/create/ started work");
         return TariffDto.builder()
@@ -42,24 +51,27 @@ public class LogsController {
                 .build();
     }
 
-    @PostMapping("/logs/chooseTariff/client/")
+    @PostMapping("/logs/chooseTariff/admin/")
     public LogsDto chooseTariff(@RequestParam String phoneNumb, @RequestParam String tariffName) {
         log.info("Controller client/add/ started work");
         Logs logs = logsService.chooseTariff(phoneNumb, tariffName);
         return mapToDTO.map(logs, LogsDto.class);
     }
 
-    @PostMapping("/logs/postponeTariff/client/")
-    public LogsDto chooseTariff(@RequestParam String phoneNumb, @RequestParam String tariffName, @RequestParam int month) throws Exception {
-        log.info("Controller logs/postponeTariff  started work");
-        Logs logs = logsService.postponeTariff(phoneNumb, tariffName, month);
-        return mapToDTO.map(logs, LogsDto.class);
-    }
-
-    @GetMapping("/logs/access/client/")
+    @GetMapping("/logs/access/admin/")
     public LogsDto access(@RequestParam String phoneNumb) throws CannotUndoException {
         log.info("Controller logs/postponeTariff  started work");
         Logs logs = logsService.access(phoneNumb);
         return mapToDTO.map(logs, LogsDto.class);
+    }
+
+    @GetMapping("/logs/getAllClientFromStartDataToFinishData/admin/")
+    public List<String> getAllClientFromStartDataToFinishData(@RequestParam Date startData,
+                                                              @RequestParam Date finishData) throws CannotUndoException {
+
+        log.info("Controller logs/getAllClientFromStartDataToFinishData  started work");
+
+        List<String> list = logsService.getAllClientFromStartDataToFinishData(startData, finishData).stream().map(logs -> logs.toString()).collect(Collectors.toList());
+        return list;
     }
 }
