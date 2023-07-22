@@ -25,5 +25,5 @@ public class User {
     private String name;
     private String pw;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private Set<Role> role ;
 }
