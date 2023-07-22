@@ -1,11 +1,8 @@
 package client.service;
 
 import client.entity.Client;
-import client.exeptions.UserAlreadyExistException;
 import client.exeptions.UserNotFoundException;
 
-
-import java.util.List;
 import java.util.Optional;
 
 public interface ClientService {

@@ -8,7 +8,6 @@ import client.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -31,6 +30,7 @@ public class ClientServiceImpl implements ClientService {
         log.debug(clientNew.get().getName() + " made a payment " + payment);
         return client;
     }
+
     @Override
     public Optional<Client> getByPhoneNumb(String phoneNumber) throws UserNotFoundException {
         log.debug("Service /getByPhoneNumb/ started work");

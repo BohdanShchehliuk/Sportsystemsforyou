@@ -16,6 +16,7 @@ public class ClientApplication {
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
+
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ClientApplication.class, args);
 

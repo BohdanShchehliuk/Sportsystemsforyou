@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
 @Configuration
 public class SecurityConfig {
 
@@ -23,18 +24,18 @@ public class SecurityConfig {
     // User configuration
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails normalUser= User
+        UserDetails normalUser = User
                 .withUsername("Client")
                 .password(passwordEncoder().encode("123"))
                 // roles
                 .roles("CLIENT")
                 .build();
-        UserDetails adminUser=User
+        UserDetails adminUser = User
                 .withUsername("Admin")
                 .password(passwordEncoder().encode("password"))
                 .roles("ADMIN")
                 .build();
-        InMemoryUserDetailsManager inMemoryUserDetailsManager= new InMemoryUserDetailsManager();
+        InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
         inMemoryUserDetailsManager.createUser(normalUser);
         inMemoryUserDetailsManager.createUser(adminUser);
 
@@ -42,9 +43,8 @@ public class SecurityConfig {
     }
 
 
-
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()

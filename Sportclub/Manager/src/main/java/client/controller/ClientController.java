@@ -8,6 +8,7 @@ import client.service.ClientService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -19,10 +20,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ClientController {
     private ModelMapper mapToEntity;
-    final private ModelMapper mapToDTO;
+    private ModelMapper mapToDTO;
     private ClientService clientService;
 
-    @GetMapping("/client/getAll/admin/")
+    @GetMapping("" +
+            "")
     private List<ClientDto> getAll() throws UserNotFoundException {
         log.info("Controller /client/getAll/ started work");
         List<ClientDto> clientDto = clientService.getAll().stream().map(client ->
@@ -37,6 +39,7 @@ public class ClientController {
         return "You add a new client ";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/client/create/admin/")
     public ClientDto create() {
         log.info("Controller /client/create/ started work");
@@ -49,21 +52,26 @@ public class ClientController {
                 .additionalInfo("Пє пиво під час тренування")
                 .build();
     }
-    @GetMapping("/client/getByPhoneNumber/admin/")
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/client/getByPhoneNumber/")
     private ClientDto getByPhoneNumber(@RequestParam String phone) throws UserNotFoundException {
         log.info("Controller /client/getByPhoneNumber/ started work");
         return mapToDTO.map(clientService.getByPhoneNumb(phone), ClientDto.class);
     }
+
     @PostMapping("/client/deleteByPhoneNumber/admin/")
     private String deleteByPhoneNumber(@RequestParam String name, @RequestParam String surname, @RequestParam String phone) throws Exception {
         log.info("Controller /client/deleteByPhoneNumber/ started work");
         return clientService.delete(name, surname, phone);
     }
+
     @PostMapping("/client/unactivatedByPhoneNumber/admin/")
     private String unactivatedByPhoneNumber(@RequestParam String name, @RequestParam String surname, @RequestParam String phone) throws Exception {
         log.info("Controller /client/unactivatedByPhoneNumber/ started work");
         return clientService.unactivated(name, surname, phone);
     }
+
     @PostMapping("/client/activatedByPhoneNumber/admin/")
     private String activatedByPhoneNumber(@RequestParam String name, @RequestParam String surname, @RequestParam String phone) throws Exception {
         log.info("Controller /client/activatedByPhoneNumber/ started work");

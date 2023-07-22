@@ -16,15 +16,13 @@ import java.sql.Date;
 @Table(name = "CLIENT_LOGS")
 
 public class Logs {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "CLIENT_ID")
     private Client client;
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "TARIFF_PLAN_ID")
     private Tariff tariff;
     private float payment;
@@ -38,7 +36,7 @@ public class Logs {
     public String toString() {
         return "Logs{" +
                 "id=" + id +
-                ", client=" + client.getSurname()+ " " + client.getName() +
+                ", client=" + client.getSurname() + " " + client.getName() +
                 ", tariff=" + tariff.getName() +
                 ", payment=" + payment +
                 ", startDay=" + startDay +

@@ -28,22 +28,26 @@ public class TariffController {
                 mapToDTO.map(tariff, TariffDto.class)).collect(Collectors.toList());
         return tariffDto;
     }
+
     @GetMapping("/tariff/getByName/public/")
     private TariffDto getByName(@RequestParam String name) throws UserNotFoundException {
         log.info("Controller /tariff/getByName/ started work");
         return mapToDTO.map(tariffService.findByName(name).get(), TariffDto.class);
     }
+
     @PostMapping("/tariff/add/admin/")
     public String addTariff(@RequestBody TariffDto tariffDto) throws UserAlreadyExistException {
         log.info("Controller tariff/add/ started work");
         tariffService.add(mapToEntity.map(tariffDto, Tariff.class));
         return "You add a new traffic ";
     }
+
     @PostMapping("/tariff/deleteByName/admin/")
     private String deleteByPhoneNumber(@RequestParam String name) throws UserNotFoundException {
         log.info("Controller /traffic/deleteByName/ started work");
         return tariffService.delete(name);
     }
+
     @PostMapping("/tariff/unactivatedByName/admin/")
     private String unactivatedByPhoneNumber(@RequestParam String name) throws UserNotFoundException {
         log.info("Controller tariff/unactivatedByName/ started work");

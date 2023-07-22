@@ -7,9 +7,13 @@ import client.service.ClientService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -17,6 +21,7 @@ public class ClientController {
     private ModelMapper mapToEntity;
     final private ModelMapper mapToDTO;
     private ClientService clientService;
+
     @GetMapping("/client/create/client/")
     public ClientDto create() {
         log.info("Controller /client/create/ started work");
@@ -29,11 +34,13 @@ public class ClientController {
                 .additionalInfo("Пє пиво під час тренування")
                 .build();
     }
+
     @GetMapping("/client/getByPhoneNumber/client/")
     private ClientDto getByPhoneNumber(@RequestParam String phone) throws UserNotFoundException {
         log.info("Controller /client/getByPhoneNumber/ started work");
         return mapToDTO.map(clientService.getByPhoneNumb(phone), ClientDto.class);
     }
+
     @PostMapping("/client/payByPhoneNumber/client/")
     private Client payByPhoneNumber(@RequestParam String phone, @RequestParam float payment) throws Exception {
         log.info("Controller /client/payByPhoneNumber/ started work");

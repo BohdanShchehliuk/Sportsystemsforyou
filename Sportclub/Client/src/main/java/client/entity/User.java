@@ -1,15 +1,11 @@
 package client.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -24,6 +20,6 @@ public class User {
     private int id;
     private String name;
     private String pw;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Role> role;
 }

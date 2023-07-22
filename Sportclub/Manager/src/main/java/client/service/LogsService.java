@@ -4,8 +4,6 @@ package client.service;
 import client.entity.Logs;
 import client.exeptions.CustomException;
 import client.exeptions.UserNotFoundException;
-import org.springframework.data.repository.query.Param;
-
 
 import java.sql.Date;
 import java.util.List;

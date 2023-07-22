@@ -109,6 +109,7 @@ public class LogsServiceImpl implements LogsService {
         checkDay(logs);
         return logs;
     }
+
     private void checkClient(String phoneNumb, String tariffName) {
         Optional<Client> clientOptional = Optional.ofNullable(clientRepository.findClientByPhone(phoneNumb));
         if (clientOptional.isEmpty()) {

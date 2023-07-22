@@ -58,6 +58,7 @@ public class TariffServiceImpl implements TariffService {
         tariffRepository.delete(tariff);
         return "Tariff was deleted";
     }
+
     @Override
     public Optional<Tariff> findByName(String name) throws UserNotFoundException {
         log.debug("Service / Optional<Tariff> findByName / started work");
@@ -65,6 +66,7 @@ public class TariffServiceImpl implements TariffService {
         if (tariffOptional.isEmpty()) throw new UserNotFoundException("Tariff " + name + "  dose not existed");
         return tariffOptional;
     }
+
     @Override
     public String unactivated(String name) throws UserNotFoundException {
         log.debug("Service / Tariff unactivated/ started work");

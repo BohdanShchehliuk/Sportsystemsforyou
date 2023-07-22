@@ -25,7 +25,7 @@ public class Client {
 
     private String phone;
 
-    @Column (name = "ADDITIONAL_INFO")
+    @Column(name = "ADDITIONAL_INFO")
     private String additionalInfo;
     private boolean active;
 
