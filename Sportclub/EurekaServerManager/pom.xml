@@ -6,8 +6,8 @@
         <artifactId>Sportclub</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>Client</artifactId>
-    <name>Archetype - Client</name>
+    <artifactId>EurekaServerManager</artifactId>
+    <name>Archetype - EurekaServerManager</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -25,34 +25,6 @@
             <artifactId>entity-txn</artifactId>
             <version>0.1.4</version>
         </dependency>
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.Sportsystemsforyou</groupId>
-            <artifactId>Manager</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
     </dependencies>
     <repositories>
         <repository>
